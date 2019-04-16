@@ -1,0 +1,56 @@
+<!DOCTYPE html>  
+<html>  
+<head>
+  <meta charset="utf-8">
+  <title>View Report</title>
+  <style>
+    body {
+      background-color:lightblue;
+    }
+    </style>
+</head>
+<body>
+  
+  <form action="/trends" method=post>
+  <% {%>
+<h2>Select Area: </h2> 
+<input type="checkbox" name="area" value="Central"/> Central
+<input type="checkbox" name="area" value="Rampart"/> Rampart
+<input type="checkbox" name="area" value="Southwest"/>Southwest        
+<input type="checkbox" name="area" value="Hollenbeck"/>Hollenbeck
+<input type="checkbox" name="area" value="Harbor"/>Harbor
+<input type="checkbox" name="area" value="Hollywood"/>Hollywood
+<input type="checkbox" name="area" value="Wilshire"/>Wilshire
+<input type="checkbox" name="area" value="West LA"/>West LA
+<input type="checkbox" name="area" value="Van Nuys"/>Van Nuys
+<input type="checkbox" name="area" value="West Valley"/>West Valley
+<input type="checkbox" name="area" value="Northeast"/>Northeast
+<input type="checkbox" name="area" value="77th Street"/>77th Street
+<input type="checkbox" name="area" value="Newton"/>Newton
+<input type="checkbox" name="area" value="Pacific"/>Pacific
+<input type="checkbox" name="area" value="N Hollywood"/>N Hollywood
+<input type="checkbox" name="area" value="Foothill"/>Foothill
+<input type="checkbox" name="area" value="Devonshire"/>Devonshire
+<input type="checkbox" name="area" value="Southeast"/>Southeast
+<input type="checkbox" name="area" value="Mission"/>Mission
+<input type="checkbox" name="area" value="Olympic"/>Olympic
+<input type="checkbox" name="area" value="Topanga"/>Topanga
+<br>
+<br>
+<h2>Select Crime: </h2> 
+<input type="radio"  name="crime" value="RAPE"/> RAPE
+<input type="radio"  name="crime" value="THEFT"/> THEFT
+<input type="radio"  name="crime" value="ASSAULT"/>ASSAULT
+<input type="radio"  name="crime" value="FIREARMS"/>FIREARMS
+<input type="radio"  name="crime" value="SEXUAL CRIMES"/>SEXUAL CRIMES
+<input type="radio"  name="crime" value="VANDALISM"/>VANDALISM
+<input type="radio"  name="crime" value="BURGLARY"/>BURGLARY
+<input type="radio"  name="crime" value="ABORTION"/>ABORTION
+<input type="radio"  name="crime" value="DRIVING"/>DRIVING
+<br>
+<br>
+ <input type="submit" value="submit">
+<% } %>
+</form>
+</body>
+</html>  

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.min.js"></script>
+</head>
+<body>
+    <h1>Comparison Chart</h1>
+    <form action="/comparison" method="POST">
+       
+        Select a year: <br />
+        <select name='year'>
+            <option value="">All years</option>
+            <option value="2010">2010</option>
+            <option value="2011">2011</option>
+            <option value="2012">2012</option>
+            <option value="2013">2013</option>
+            <option value="2014">2014</option>
+            <option value="2015">2015</option>
+            <option value="2016">2016</option>
+            <option value="2017">2017</option>
+            <option value="2018">2018</option>
+            <option value="2019">2019</option>
+        </select>
+        <br />
+        <br />
+        Comparion on: <br />
+       
+        <input type="radio" name="basedon" value="time" checked="checked">Time</input><br>
+        <input type="radio" name="basedon" value="location">Location</input><br>
+        <input type="radio" name="basedon" value="age">Age</input><br/><br />
+        Select Area: <br />
+        <select name="area">
+            <option value=""> All Areas </option>
+            <option value="Central"> Central </option>
+            <option value="Rampart"> Rampart </option>
+            <option value="Southwest"> Southwest </option>
+            <option value="Hollenbeck"> Hollenbeck </option>
+            <option value="Harbor"> Harbor </option>
+            <option value="Hollywood"> Hollywood </option>
+            <option value="Wilshire"> Wilshire </option>
+            <option value="West LA"> West LA </option>
+            <option value="Van Nuys"> Van Nuys </option>
+            <option value="West Valley"> West Valley </option>
+            <option value="Northeast"> Northeast </option>
+            <option value="77th Street"> 77th Street </option>
+            <option value="Newton"> Newton </option>
+            <option value="Pacific"> Pacific </option>
+            <option value="N Hollywood"> N Hollywood </option>
+            <option value="Foothill"> Foothill </option>
+            <option value="Devonshire"> Devonshire </option>
+            <option value="Southeast"> Southeast </option>
+            <option value="Mission"> Mission </option>
+            <option value="Olympic"> Olympic </option>
+            <option value="Topanga"> Topanga </option>
+          </select>
+          <br />
+          <br />
+          Age Groups: <br />
+          <select name='age'>
+            <option value="0-150">All ages</option>
+            <option value="0-18">Children 0-18</option>
+            <option value="19-25">Adults 19-25</option>
+            <option value="26-34">Adults 26-34</option>
+            <option value="35-54">Adults 35-54</option>
+            <option value="55-64">Adults 55-64</option>
+            <option value="65-150">Senior Citizens 65+</option>                
+        </select>
+        <br />
+        <br />
+        Timeframe: <br />
+        <select name='timeframe'>
+            <option value="0000 and 2400">All day</option>
+            <option value="0000 and 0200">12am to 2am</option>
+            <option value="0200 and 0400">2am to 4am</option>
+            <option value="0400 and 0600">4am to 6am</option>
+            <option value="0600 and 0800">6am to 8am</option>
+            <option value="0800 and 1000">8am to 10am</option>
+            <option value="1000 and 1200">10am to 12pm</option>
+            <option value="1200 and 1400">12pm to 2pm</option>
+            <option value="1400 and 1600">2pm to 4pm</option>
+            <option value="1600 and 1800">4pm to 6pm</option>
+            <option value="1800 and 2000">6pm to 8pm</option>
+            <option value="2000 and 2200">8pm to 10pm</option>
+            <option value="2200 and 2400">10pm to 12pm</option>
+        </select>
+        <br />
+        <br />
+        <input type="submit" value="Submit" />
+    </form>
+
+
+    
+    <% if(data!=""){ %> 
+        <div style="width:1000px;">
+            <p id="demo"></p>
+            <canvas id="compareChart"></canvas>
+            <p>"Demo"</p>
+          </div>
+
+          <script>
+          </script>
+        
+        <script>
+        document.write("DEMO")
+        var value = data;
+        document.write("Data "+data);
+        //    document.write(data[1]);
+        </script>
+        
+         <script>
+            
+            
+            for(var i = 0;i< 12;i++){
+                document.getElementById("demo").innerHTML = "Data";
+                var elems = data.splice(i,1);
+                
+            } 
+            var ctx = document.getElementById('compareChart').getContext('2d'),
+              //Init chart
+              chart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                  labels: ['12am to 2am', '2am to 4am', '4am to 6am', '6am to 8am', '8am to 10am', '10am to 12pm', '12pm to 2pm', '2pm to 4pm', '4pm to 6pm', '6pm to 8pm', '8pm to 10pm', '10pm to 12pm'],
+                  datasets: []
+                }
+              });
+              /* for (j = 0; j < 12; j++) {
+                var timeCount = elems[j];
+                chart.data.datasets.push(
+                {
+                    label: 'Central',
+                    borderColor: '#0000ff',
+                    data: timeCount
+                });
+                chart.update(); */
+            //}
+          </script> 
+          <script>
+                console.log("Script enter");
+            //    var data = <%=data%>;
+                document.write("Here");
+                document.write(data[1]);
+            </script>
+        <div> Graph Type <%= gtype %> </div>  
+        <div> Result set <%= data %> </div> 
+
+        
+    <%}%> 
+</body>
+</html>

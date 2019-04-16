@@ -1,0 +1,165 @@
+<head>
+    <script src="FileSaver.js"></script>
+    <script src="tableexport.js"></script>
+    <title>View Report</title>
+</head>
+<style>
+    body {
+        background-color: whitesmoke;
+    }
+
+    .button {
+        background-color: #4caf50;
+        border: none;
+        color: white;
+        padding: 5px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;
+    }
+
+    tr,
+    td {
+        padding-top: 7px;
+        padding-bottom: 7px;
+    }
+
+    #customers {
+        font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    #customers td,
+    #customers th {
+        border: 1px solid #ddd;
+        padding: 4px;
+    }
+
+    #customers tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+
+    #customers tr:hover {
+        background-color: #ddd;
+    }
+
+    #customers thead {
+        padding-top: 5px;
+        padding-bottom: 5px;
+        text-align: left;
+        background-color: #4CAF50;
+        color: white;
+    }
+</style>
+<center>
+    <h1><i>Area Wise Report</i></h1>
+    <table>
+        <form action="/viewReport" method="POST">
+            <tr>
+                <td>Area name:</td>
+                <td>
+                    <select name="area">
+                        <option value=""> -- Select from below -- </option>
+                        <option value="Central"> Central </option>
+                        <option value="Rampart"> Rampart </option>
+                        <option value="Southwest"> Southwest </option>
+                        <option value="Hollenbeck"> Hollenbeck </option>
+                        <option value="Harbor"> Harbor </option>
+                        <option value="Hollywood"> Hollywood </option>
+                        <option value="Wilshire"> Wilshire </option>
+                        <option value="West LA"> West LA </option>
+                        <option value="Van Nuys"> Van Nuys </option>
+                        <option value="West Valley"> West Valley </option>
+                        <option value="Northeast"> Northeast </option>
+                        <option value="77th Street"> 77th Street </option>
+                        <option value="Newton"> Newton </option>
+                        <option value="Pacific"> Pacific </option>
+                        <option value="N Hollywood"> N Hollywood </option>
+                        <option value="Foothill"> Foothill </option>
+                        <option value="Devonshire"> Devonshire </option>
+                        <option value="Southeast"> Southeast </option>
+                        <option value="Mission"> Mission </option>
+                        <option value="Olympic"> Olympic </option>
+                        <option value="Topanga"> Topanga </option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>Date Occurred:</td>
+                <td><input type="date" name="date" min="2009-12-31" /></td>
+            </tr>
+            <tr>
+                <td>Start Time:</td>
+                <td>
+                    <input type="text" name="starttime" placeholder="hhmm or hmm" />
+                </td>
+            </tr>
+            <tr>
+                <td>End Time:</td>
+                <td>
+                    <input type="text" name="endtime" placeholder="hhmm or hmm" />
+                </td>
+            </tr>
+            <tr>
+                <td><input type="submit" class="button" value="Fetch Result" /></td>
+            </tr>
+        </form>
+    </table>
+    <br>
+</center>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<center>
+    {{#if NOCRIME}}
+    <h2><i>No crimes committed during this period</i></h2>
+    {{/if}}
+    {{#if data}}
+    <table border='1' id="customers">
+        <thead>
+            <tr>
+                <td>DR_NO</td>
+                <td>CRIME</td>
+                <td>TIME</td>
+                <td>REPORTED_ON</td>
+                <td>AGE</td>
+                <td>SEX</td>
+                <td>DESCENT</td>
+                <td>STATUS</td>
+            </tr>
+        </thead>
+
+        <tbody>
+            {{#each data}}
+            <tr>
+                <td>{{this.[0]}}</td>
+                <td>{{this.[1]}}</td>
+                <td>{{this.[2]}}</td>
+                <td>{{this.[3]}}</td>
+                <td>{{this.[4]}}</td>
+                <td>{{this.[5]}}</td>
+                <td>{{this.[6]}}</td>
+                <td>{{this.[7]}}</td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+    {{/if}}
+</center>
+<br />

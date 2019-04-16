@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>View Report</title>
+    <script>
+        var sFileName = "data";
+        function helloworld() {
+            // document.write("Hello world");
+            console.log("Hellooooo");
+            $('#Customers').tableExport({
+                fileName: sFileName,
+                type: 'xlsx'
+            });
+            // TableExport(document.getElementsByTagName("table"));
+        }
+    </script>
+</head>
+
+<body>
+
+    {{{body}}}
+
+</body>
+
+</html>

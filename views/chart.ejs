@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0"
+  <meta charset="utf-8">
+  <title> View Report </title>
+   <style>
+    body {
+      background-color:lightblue;
+    }
+    </style>
+ 
+     
+     
+ 
+  <div class="chart">
+    <canvas id="chart-demo-1" width="300" height="100"></canvas>
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.min.js"></script>
+  <script>
+    
+    var one= <%=one%>;
+    var two= <%=two%>;
+    var three= <%=three%>;
+    var four= <%=four%>;
+    var five= <%=five%>;
+    var six= <%=six%>;
+    var seven= <%=seven%>;
+     var eight= <%=eight%>;
+     var nine= <%=nine%>;
+     var ten= <%=ten%>;
+     
+     var array1=[];
+     var array2=[];
+     var array3=[];
+     array1[0]=one[0];
+     array1[1]=two[0];
+     array1[2]=three[0];
+     array1[3]=four[0];
+     array1[4]=five[0];
+     array1[5]=six[0];
+     array1[6]=seven[0];
+     array1[7]=eight[0];
+     array1[8]=nine[0];
+     array1[9]=ten[0];
+     array2[0]=one[1];
+     array2[1]=two[1];
+     array2[2]=three[1];
+     array2[3]=four[1];
+     array2[4]=five[1];
+     array2[5]=six[1];
+     array2[6]=seven[1];
+     array2[7]=eight[1];
+     array2[8]=nine[1];
+     array2[9]=ten[1];
+ 
+     array3[0]=one[2];
+     array3[1]=two[2];
+     array3[2]=three[2];
+     array3[3]=four[2];
+     array3[4]=five[2];
+     array3[5]=six[2];
+     array3[6]=seven[2];
+     array3[7]=eight[2];
+     array3[8]=nine[2];
+     array3[9]=ten[2];
+         
+     var ctx = document.getElementById('chart-demo-1').getContext('2d'),
+      // chart
+      chart = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: ['2010', '2011', '2012', '2013', '2014', '2015', '2016', '2017', '2018', '2019'],
+          datasets: [
+          {
+          label: 'AREA1',
+          borderColor: '#ff003f',
+          data: array1
+        },
+        {
+          label: 'AREA2',
+          borderColor: '#c300ff',
+          data: array2
+        },
+        {
+          label: 'AREA3',
+          borderColor: '#ffe100',
+          data: array3
+        }
+          ]
+        },
+        options:{
+          layout:{
+            padding:10,
+          },
+          legend:{
+            position:'bottom',
+          },
+          title:{
+            display:true,
+            text:'Crime Trends of Los Angeles City' 
+          },
+          scales:{
+           
+            xAxes:[{
+              scaleLabel:{
+                dispaly:true,
+                labelString:'Year'
+              }
+            }],
+            yAxes:[{
+              scaleLabel:{
+                dispaly:true,
+                labelString:'Count'
+              }
+            }]
+          }
+        }
+      });
+   
+   
+  </script>
+
+</head>
+
+<body>
+<h2> AREA1 : <%=area[0]%></h2>
+<h2> AREA2 :  <%=area[1]%> </h2>
+<h2> AREA3 : <%=area[2]%></h2>
+<h2> CRIME: <%=crime%></h2>
+<form action="/trends" method=post></form>
+  
+  <!-- <script type="text/javascript">
+    document.write(one);
+    document.write("<br>");
+    document.write(two);
+    document.write("<br>");
+    document.write(three);
+    document.write("<br>");
+    document.write(four);
+    document.write("<br>");
+    document.write(five);
+    document.write("<br>");
+    document.write(six);
+    document.write("<br>");
+    document.write(seven);
+    document.write("<br>");
+    document.write(eight);
+    document.write("<br>");
+    document.write(nine);
+    document.write("<br>");
+    document.write(ten);
+    document.write("<br>");
+    document.write(array1);
+    document.write("<br>");
+    document.write(array2);
+    document.write("<br>");
+    document.write(array3);
+  </script> -->
+
+
+</body>
+
+</html>

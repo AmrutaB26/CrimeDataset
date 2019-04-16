@@ -6,16 +6,15 @@ const selectQuery =
 
 const baseQuery =
   
-  ` ) AS Rank, COUNT(*) AS Count, Weapon.Description AS Weapon 
+  ` ) AS Rank, COUNT(*) AS Count, Descent.Description
   FROM Reports
-  JOIN Usedin on Reports.Dr_no=Usedin.Dr_no 
-  JOIN Weapon on Usedin.Weapon_used_code=Weapon.Weapon_used_code 
-  WHERE Crime_code IN (SELECT Crime_code 
+  JOIN Victim ON Victim.Victim_id = Reports.Victim_id
+  JOIN Descent ON Descent.Descent_code = Victim.Descent
+  WHERE Crime_code IN (SELECT Crime_code
                           FROM Crime
-                          WHERE Description like '%'||:type||'%')
-      AND Weapon.Description NOT like '%UNKNOWN%' 
-  GROUP BY Weapon.Description
-  ORDER BY COUNT(*) `;
+                          WHERE Description like '%THEFT%')
+  GROUP BY Descent.Description
+  ORDER BY Count(*) `;
  
 async function find(context) {
   let query = selectQuery;

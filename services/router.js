@@ -1,5 +1,6 @@
 const express = require('express');
 const router = new express.Router();
+var oracledb = require('oracledb');
 const totalCount = require('../db_apis/totalCount.js');
 const rankCrimesDB = require('../db_apis/crimeType.js');
 const rankWeaponDB = require('../db_apis/weaponType.js');
@@ -10,7 +11,7 @@ router.route('/').get(function (req, res){
     return res.render('../views/crimeData.ejs', {data: "", type: "", total: ""})
 })
 
-router.route('/rankCrimes')
+router.route('/')
   .post(async function get(req, res, next) {
     try {
       const context = {};
@@ -33,7 +34,7 @@ router.route('/rankCrimes')
   }
    
   });
- 
+
 module.exports = router;
 
 
