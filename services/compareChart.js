@@ -17,6 +17,7 @@ router.post("/", function(request, res) {
 
   var compareBasedOn = request.body.basedon;
   var resultCount = [];
+  var finalData = [];
   var data = {
     year: request.body.year,
     area: request.body.area,
@@ -34,10 +35,6 @@ router.post("/", function(request, res) {
     {
       if (err) { console.error(err); return; }
       
-
-      if (compareBasedOn == 'time'){
-        console.log('yes');
-      }
 
       if(data.year == ""){
         var yearstartdate = '01-Jan-2010'
@@ -59,86 +56,117 @@ router.post("/", function(request, res) {
       endTime = Number(timeSlot[2]);
       ageGroup = data.age.split('-');
 
-      var compareQuery = "select count(*) from (select * from incident where time_occurred between :1 and :2 and date_occurred between :3 and :4) inc join reports on inc.dr_no = reports.dr_no where victim_id in (select victim_id from victim where age between :5 and :6) and coordinates in (select coordinates from location where area_id in (select area_id from area where area_name like :7)) ";
+      var timeSwitchCase = '';
+      for(var i=0; i< 24; i=i+2){
+        var j = i+2;
+        timeSwitchCase += "when time_occurred between "+ i +"00 and "+ j +"00 then '"+i+":00 to "+j+":00' \n";     
+      }
 
-      var locationQuery = "select count(*) from (select * from incident where time_occurred between :1 and :2 and date_occurred between :3 and :4) inc join reports on inc.dr_no = reports.dr_no where victim_id in (select victim_id from victim where age between :5 and :6) and coordinates in (select coordinates from location where area_id = :7)";
-    
-      //time frame graph
+      const timeQuery = 
+      `select case 
+              `+timeSwitchCase+`
+          end as time_occurred_range, count(*) as count from
+        (select * from incident 
+        where date_occurred between :1 and :2) inc 
+        join reports 
+        on inc.dr_no = reports.dr_no 
+          where victim_id in (select victim_id from victim where age between :3 and :4) 
+        and coordinates in 
+        (select coordinates from location where area_id in 
+        (select area_id from area where area_name like :5))
+        group by case 
+        `+timeSwitchCase+`
+      end
+      order by min(time_occurred)`;
+
+      const locationQuery = 
+      `select area_name, count(*) as count from 
+        (select * from incident 
+        where time_occurred between :1 and :2 
+              and date_occurred between :3 and :4) inc 
+        join reports 
+             on inc.dr_no = reports.dr_no 
+        join location 
+             on reports.coordinates = location.coordinates 
+        join area 
+             on area.area_id = location.area_id
+        where victim_id in (select victim_id from victim where age between :5 and :6) 
+        group by area_name`;        
+
+      const ageSwitchCase = 
+         `case
+             when age between 0 and 18 then 'Children 0-18' 
+             when age between 19 and 25 then 'Youth 19-25'
+             when age between 26 and 34 then 'Young Adults 26-34'
+             when age between 35 and 54 then 'Middle-aged Adults 25-54'
+             when age between 55 and 64 then 'Old Adults 55-64'
+             else 'Senior Citizens 65+'
+         end`
+
+
+      const ageGroupQuery = 
+      `select `+ ageSwitchCase +
+      ` as age_group, count(*) as count from
+        (select * from incident 
+          where time_occurred between :1 and :2 
+          and date_occurred between :3 and :4) inc 
+      join reports 
+        on inc.dr_no = reports.dr_no 
+      join victim
+        on reports.victim_id = victim.victim_id
+        where coordinates in 
+          (select coordinates from location where area_id in 
+            (select area_id from area where area_name like :5))
+      group by `+ ageSwitchCase +
+      ` order by min(age)`;
+
+
+
+
+
+      //by time frame
       if(compareBasedOn == 'time'){
-        startTime = 0000;
-        endTime = 0200;
-          for(var i = 0;i< 12; i++){
-            connection.execute(
-                compareQuery, [ startTime, endTime, yearstartdate, yearenddate, ageGroup[0], ageGroup[1], areaName],
-              function(err, result)
-              {
-                if (err) { console.error(err); return; }
-                resultCount.push(result.rows);
-              });  
-              startTime += 100;
-              endTime += 100;          
-          }
-          
+        
           connection.execute(
-            compareQuery, [ startTime, endTime, yearstartdate, yearenddate, ageGroup[0], ageGroup[1], areaName],
+            timeQuery, [yearstartdate, yearenddate, ageGroup[0], ageGroup[1], areaName],
           function(err, result)
           {
             if (err) { console.error(err); return; }
-            console.log(resultCount);
-            res.render('../views/compareForm.ejs', {data: resultCount, gtype: 'Time'})
+            finalData = result.rows;
+            res.render('../views/compareForm.ejs', {data: finalData, gtype: 'Time'})
           });
         }
+
+        //by location
         else if(compareBasedOn == 'location'){
           var areaId = 1;
-          for(var i=0;i<21;i++){
+        
             connection.execute(
-              locationQuery, [ startTime, endTime, yearstartdate, yearenddate, ageGroup[0], ageGroup[1], areaId],
+              locationQuery, [ startTime, endTime, yearstartdate, yearenddate, ageGroup[0], ageGroup[1]],
               function(err, result)
                 {
                   if (err) { console.error(err); return; }
-                  resultCount.push(result.rows);
-                });         
-                areaId += 1;
-          }
-          connection.execute(
-            locationQuery, [ startTime, endTime, yearstartdate, yearenddate, ageGroup[0], ageGroup[1], areaId],
-          function(err, result)
-          {
-            if (err) { console.error(err); return; }
-            console.log(resultCount);
-            res.render('../views/compareForm.ejs', {data: resultCount, gtype: 'Location'});
-            
-          });
-        //  res.render('../views/compareForm.ejs', {data: "location"});
+                  finalData = result.rows;
+                  res.render('../views/compareForm.ejs', {data: finalData, gtype: 'Location'});
+
+                });             
         }
+        //by age group
         else{
           var startAge = 0;
           var endAge = 20;
-          for(var i = 0;i< 5; i++){
-            startAge += 20;
-            endAge += 20;
-          
-              connection.execute(
-                  compareQuery, [ startTime, endTime, yearstartdate, yearenddate, startAge, endAge, areaName],
-                function(err, result)
-                {
-                  if (err) { console.error(err); return; }
-                  resultCount.push(result.rows);
-                });            
-            }
             
             connection.execute(
-              compareQuery, [ startTime, endTime, yearstartdate, yearenddate, ageGroup[0], ageGroup[1], areaName],
+              ageGroupQuery, [ startTime, endTime, yearstartdate, yearenddate, areaName],
             function(err, result)
             {
               if (err) { console.error(err); return; }
-              console.log(resultCount);
-              res.render('../views/compareForm.ejs', {data: resultCount, gtype: 'Age'})
+              finalData = result.rows;
+              res.render('../views/compareForm.ejs', {data: finalData, gtype: 'Age'})
             });
-        //  res.render('../views/compareForm.ejs', {data: "age"});
+
         }
-        console.log(resultCount);
-      //  res.render('compare', {data: resultCount})
+      
   });
 });
 
