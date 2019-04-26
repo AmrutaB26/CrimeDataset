@@ -66,7 +66,16 @@ function handleOperation(request, response, callback) {
 function handleaction(req, res) {
     area = req.body.area
     crime = req.body.crime
-    var array = Object.values(area);
+    var array;
+    if(typeof(area)==='string')
+    {
+     array={key1:area};
+     array=Object.values(array);
+     
+    }
+    else
+     array = Object.values(area);
+    
     handleOperation(req, res, function (request, response, connection) {
         for (let element of array) {
             var selectStatement1 = "SELECT COUNT(*) FROM ((SELECT reports.dr_no FROM location,reports where location.coordinates=reports.coordinates  and reports.crime_code IN ( SELECT crime_code FROM crime WHERE  description LIKE '%'||:c||'%' ) and location.area_name=:a) INTERSECT ( SELECT dr_no  FROM incident WHERE date_occurred LIKE '_______10'))";
