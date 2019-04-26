@@ -6,6 +6,7 @@ var router = express.Router();
 router.use(bodyParser.urlencoded({ extended: true }))
 let area
 let crime
+var array;
 var one = [];
 var two = [];
 var three = [];
@@ -29,7 +30,7 @@ router.post('/', async function (req, res) {
     settonull();
     handleaction(req, res);
     await new Promise(resolve => setTimeout(resolve, 15000))
-    res.render('../views/chart.ejs', { area: area, crime: crime, one: JSON.stringify(one), two: JSON.stringify(two), three: JSON.stringify(three), four: JSON.stringify(four), five: JSON.stringify(five), six: JSON.stringify(six), seven: JSON.stringify(seven), eight: JSON.stringify(eight), nine: JSON.stringify(nine), ten: JSON.stringify(ten) });
+    res.render('../views/chart.ejs', { area: array, crime: crime, one: JSON.stringify(one), two: JSON.stringify(two), three: JSON.stringify(three), four: JSON.stringify(four), five: JSON.stringify(five), six: JSON.stringify(six), seven: JSON.stringify(seven), eight: JSON.stringify(eight), nine: JSON.stringify(nine), ten: JSON.stringify(ten) });
 });
 
 function settonull(){
@@ -66,7 +67,7 @@ function handleOperation(request, response, callback) {
 function handleaction(req, res) {
     area = req.body.area
     crime = req.body.crime
-    var array;
+    
     if(typeof(area)==='string')
     {
      array={key1:area};
