@@ -61,7 +61,8 @@ router.post("/", function(request, res) {
   };
 
   var form_query =
-    "SELECT I.dr_no, c.description, time_occurred,  DATE_REPORTED, v.age, v.sex, ds.description, cs.description as STATUS FROM incident I JOIN REPORTS R ON I.DR_NO = R.DR_NO JOIN CASE_STATUS CS ON CS.STATUS_CODE = I.STATUS_CODE JOIN VICTIM V ON V.VICTIM_ID = R.VICTIM_ID JOIN CRIME C ON c.crime_code = r.crime_code JOIN LOCATION L ON r.coordinates = l.coordinates JOIN DESCENT ds ON v.descent = ds.descent_code WHERE date_occurred = :1 AND time_occurred BETWEEN :2 AND :3 AND AREA_NAME = :4";
+    "SELECT I.dr_no, c.description, time_occurred,  DATE_REPORTED, v.age, v.sex, cs.description as STATUS FROM incident I JOIN REPORTS R ON I.DR_NO = R.DR_NO JOIN CASE_STATUS CS ON CS.STATUS_CODE = I.STATUS_CODE JOIN VICTIM V ON V.VICTIM_ID = R.VICTIM_ID JOIN CRIME C ON c.crime_code = r.crime_code JOIN LOCATION L ON r.coordinates = l.coordinates JOIN AREA A ON a.area_id = l.area_id WHERE date_occurred = :1 AND time_occurred BETWEEN :2 AND :3 AND AREA_NAME = :4";
+  // "Select * from usedfor";;
   // console.log(form_query);
 
   oracledb.getConnection(
@@ -122,5 +123,5 @@ router.post("/", function(request, res) {
 });
 
 // app.use("/", router);
-console.log("Running at Port 3000");
+// console.log("Running at Port 3000");
 module.exports = router;

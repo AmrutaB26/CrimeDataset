@@ -44,7 +44,7 @@ function handleOperation(request, response, callback) {
     response.setHeader('Access-Control-Allow-Credentials', true);
 
 
-    var connectString = "localhost/orcl";
+    
 
     oracledb.getConnection(
         {
