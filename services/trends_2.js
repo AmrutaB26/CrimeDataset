@@ -29,7 +29,7 @@ router.get('/', function (req, res) {
 router.post('/', async function (req, res) {
     settonull();
     handleaction(req, res);
-    await new Promise(resolve => setTimeout(resolve, 15000))
+    await new Promise(resolve => setTimeout(resolve, 25000))
     res.render('../views/chart.ejs', { area: array, crime: crime, one: JSON.stringify(one), two: JSON.stringify(two), three: JSON.stringify(three), four: JSON.stringify(four), five: JSON.stringify(five), six: JSON.stringify(six), seven: JSON.stringify(seven), eight: JSON.stringify(eight), nine: JSON.stringify(nine), ten: JSON.stringify(ten) });
 });
 
