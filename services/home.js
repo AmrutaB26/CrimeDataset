@@ -20,7 +20,7 @@ app.use("/", router);
 // app.listen(process.env.port || 3000);
 router.get("/", function(request, res, next) {
   // res.render("tempdisplay.handlebars");
-  res.sendFile(path.join(__dirname + "/index.html"));
+  res.sendFile(path.join(__dirname + "/../views/index.html"));
 
   //__dirname : It will resolve to your project folder.
 });
