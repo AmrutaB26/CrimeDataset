@@ -5,6 +5,7 @@ const baseQuery =
   `SELECT ROW_NUMBER() OVER (ORDER BY Count(*) DESC ) AS Rank, Area_name, COUNT(*) AS Count
   FROM Reports
   JOIN Location ON Reports.Coordinates=Location.Coordinates
+  JOIN Area ON Area.Area_ID = Location.Area_ID
   WHERE Crime_code IN (SELECT Crime_code
                           FROM Crime
                           WHERE Description like '%'||:type||'%')
