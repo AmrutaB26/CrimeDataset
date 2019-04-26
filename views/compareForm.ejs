@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.min.js"></script>
 </head>
 <body>
     <h1>Comparison Chart</h1>
@@ -59,10 +59,10 @@
           <select name='age'>
             <option value="0-150">All ages</option>
             <option value="0-18">Children 0-18</option>
-            <option value="19-25">Youth 19-25</option>
-            <option value="26-34">Young Adults 26-34</option>
-            <option value="35-54">Middle-aged Adults 35-54</option>
-            <option value="55-64">Old Adults 55-64</option>
+            <option value="19-25">Adults 19-25</option>
+            <option value="26-34">Adults 26-34</option>
+            <option value="35-54">Adults 35-54</option>
+            <option value="55-64">Adults 55-64</option>
             <option value="65-150">Senior Citizens 65+</option>                
         </select>
         <br />
@@ -92,46 +92,57 @@
     
     <% if(data!=""){ %> 
         <div style="width:1000px;">
-            
-            <div id = "viewChart" style="width:80%;float:right;">
-                    <canvas id = "compareChart"></canvas>
-            </div>
+            <p id="demo"></p>
+            <canvas id="compareChart"></canvas>
+            <p>"Demo"</p>
           </div>
+
+          <script>
+          </script>
+        
+        <script>
+        document.write("DEMO")
+        var value = data;
+        document.write("Data "+data);
+        //    document.write(data[1]);
+        </script>
         
          <script>
-             Chart.defaults.global.elements.line.backgroundColor = "rgba(75,192,192,0.4)";
-            Chart.defaults.global.elements.line.borderColor = "rgba(75,192,192,0.4)";
-Chart.defaults.global.elements.point.backgroundColor = "white";
-Chart.defaults.global.elements.line.borderJoinStyle = "miter";
-Chart.defaults.global.legend.display = "true";
-
-             var dataArray = [];
-             var labelList = [];
-
-             console.log(dataArray);
-
-            var j=0;
-            <% for(var i=0; i < data.length; i++) { %>
-                dataArray[j] = <%=data[i][1]%>
-                labelList[j] = "<%=data[i][0]%>"
-                j++;
-            <% } %>
             
-            console.log(dataArray);
-            console.log(labelList);
-            const canvas = document.getElementById('compareChart');
-            const ctx = canvas.getContext('2d');
-            var chart = new Chart(ctx, {
+            
+            for(var i = 0;i< 12;i++){
+                document.getElementById("demo").innerHTML = "Data";
+                var elems = data.splice(i,1);
+                
+            } 
+            var ctx = document.getElementById('compareChart').getContext('2d'),
+              //Init chart
+              chart = new Chart(ctx, {
                 type: 'bar',
                 data: {
-                  labels: labelList,
-                  datasets: [{
-                    label: "Crime By <%=gtype%>",
-                      data: dataArray
-                  }]
+                  labels: ['12am to 2am', '2am to 4am', '4am to 6am', '6am to 8am', '8am to 10am', '10am to 12pm', '12pm to 2pm', '2pm to 4pm', '4pm to 6pm', '6pm to 8pm', '8pm to 10pm', '10pm to 12pm'],
+                  datasets: []
                 }
-            });
-          </script>
+              });
+              /* for (j = 0; j < 12; j++) {
+                var timeCount = elems[j];
+                chart.data.datasets.push(
+                {
+                    label: 'Central',
+                    borderColor: '#0000ff',
+                    data: timeCount
+                });
+                chart.update(); */
+            //}
+          </script> 
+          <script>
+                console.log("Script enter");
+            //    var data = <%=data%>;
+                document.write("Here");
+                document.write(data[1]);
+            </script>
+        <div> Graph Type <%= gtype %> </div>  
+        <div> Result set <%= data %> </div> 
 
         
     <%}%> 
