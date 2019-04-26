@@ -36,10 +36,6 @@ router.post("/", function(request, res) {
       if (err) { console.error(err); return; }
       
 
-      if (compareBasedOn == 'time'){
-        console.log('yes');
-      }
-
       if(data.year == ""){
         var yearstartdate = '01-Jan-2010'
         var yearenddate = '31-Dec-2019'
@@ -107,7 +103,7 @@ router.post("/", function(request, res) {
              else 'Senior Citizens 65+'
          end`
 
-         
+
       const ageGroupQuery = 
       `select `+ ageSwitchCase +
       ` as age_group, count(*) as count from
