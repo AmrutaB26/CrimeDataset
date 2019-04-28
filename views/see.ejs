@@ -124,6 +124,94 @@
 <% } %>
 </form>
 
+<% if(one!=""){%>
+      <br><br>
+    <div class="chart">
+    <canvas id="chart-demo-1" width="300" height="100"></canvas>
+     </div>
+     <% {%>
+    <script>
+      /*var first=[];
+      first={<%=one[0]%>};
+      var second=[];
+      second={<%=one[1]%>};
+      var third=[];
+      third={<%=one[2]%>};*/
+     
+    console.log(<%=first%>);
+    console.log(<%=second%>);
+    console.log(<%=third%>);
+   
+
+     var ctx = document.getElementById('chart-demo-1').getContext('2d'),
+      
+      chart = new Chart(ctx, {
+
+        type: 'line',
+
+        data: {
+
+          labels: ['2010', '2011', '2012', '2013', '2014', '2015', '2016', '2017', '2018', '2019'],
+          datasets: [
+          {
+          label: "<%=area[0]%>",
+          borderColor: '#ff003f',
+          data: [<%=first%>]
+
+        },
+        {
+          label: "<%=area[1]%>",
+          borderColor: '#c300ff',
+          data: [<%=second%>]
+
+        },
+        {
+          label: "<%=area[2]%>",
+          borderColor: '#ffe100',
+          data: [<%=third%>]
+
+        }
+
+          ]
+        },
+        options:{
+          layout:{
+            padding:10,
+          },
+          legend:{
+            position:'bottom',
+          },
+          title:{
+            display:true,
+            text:'Crime Trends of Los Angeles City' 
+          },
+          scales:{
+           
+            xAxes:[{
+              scaleLabel:{
+                dispaly:true,
+                labelString:'Year'
+              }
+            }],
+            yAxes:[{
+              scaleLabel:{
+                dispaly:true,
+                labelString:'Count'
+              }
+            }]
+          }
+        }
+      });
+  </script>
+  <% } %>
+  
+ <h2> Selected areas are:<%=area%></h2>
+ 
+ <h2> Selected crime is:<%=crime%></h2>
+<%}%>
+
+
+
 <script src="/assets/js/jquery.min.js"></script>
     <script src="/assets/js/browser.min.js"></script>
     <script src="/assets/js/breakpoints.min.js"></script>
