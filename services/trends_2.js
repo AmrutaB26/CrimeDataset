@@ -26,7 +26,7 @@ router.post('/', async function (req, res) {
 
 
 
-app.use(bodyParser.urlencoded({ extended: true }))
+
 
 function settonull(){
     one=[];
