@@ -3,6 +3,26 @@
 <head>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.min.js"></script>
         <link rel="stylesheet" href="/assets/css/main.css" />
+        <style>
+            select{
+                background-image: url(http://i62.tinypic.com/15xvbd5.png), -webkit-linear-gradient(#FAFAFA, #F4F4F4 40%, #E5E5E5);
+                background-position: 97% center;
+                background-repeat: no-repeat;
+                border: 1px solid #AAA;
+                color: #555;
+                font-size: inherit;
+                margin: 20px;
+                overflow: hidden;
+                padding: 5px 10px;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                width: 300px;
+            }
+
+            body {
+                padding-right: 150px;
+            }
+        </style>
 </head>
 <body>
 
@@ -17,7 +37,7 @@
           <!-- Nav -->
           <nav id="menu">
             <ul class="links">
-              <li><a href="/../services/ViewReport">Reports</a></li>
+              <li><a href="ViewReport">Reports</a></li>
               <li><a href="comparison">Comparison</a></li>
               <li><a href="trends">Trends</a></li>
               <li><a href="ranking">Ranking</a></li>
@@ -49,6 +69,7 @@
         <input type="radio" name="basedon" value="time" checked="checked">Time</input><br>
         <input type="radio" name="basedon" value="location">Location</input><br>
         <input type="radio" name="basedon" value="age">Age</input><br/><br />
+
         Select Area: <br />
         <select name="area">
             <option value=""> All Areas </option>
@@ -122,9 +143,9 @@
          <script>
              Chart.defaults.global.elements.line.backgroundColor = "rgba(75,192,192,0.4)";
             Chart.defaults.global.elements.line.borderColor = "rgba(75,192,192,0.4)";
-Chart.defaults.global.elements.point.backgroundColor = "white";
-Chart.defaults.global.elements.line.borderJoinStyle = "miter";
-Chart.defaults.global.legend.display = "true";
+            Chart.defaults.global.elements.point.backgroundColor = "white";
+            Chart.defaults.global.elements.line.borderJoinStyle = "miter";
+            Chart.defaults.global.legend.display = "true";
 
              var dataArray = [];
              var labelList = [];
@@ -148,7 +169,12 @@ Chart.defaults.global.legend.display = "true";
                   labels: labelList,
                   datasets: [{
                     label: "Crime By <%=gtype%>",
-                      data: dataArray
+                      data: dataArray,
+                        backgroundColor: "rgba(206, 27, 40,0.2)",
+                        borderColor: "rgba(206, 27, 40,1)",
+                        borderWidth: 2,
+                        hoverBackgroundColor: "rgba(206, 27, 40,0.4)",
+                        hoverBorderColor: "rgba(206, 27, 40,1)"
                   }]
                 }
             });
