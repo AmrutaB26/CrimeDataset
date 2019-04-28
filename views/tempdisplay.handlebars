@@ -1,14 +1,14 @@
 <head>
     <title>View Report</title>
 </head>
-<style>
+{{!-- <style>
     body {
         background-color: whitesmoke;
-        < !-- background-image: url("./images/bg-01.jpg");
-        -->
+        background-image: url("./images/bg-01.jpg");
+        
     }
 
-    < !-- input[type=text],
+    input[type=text],
     select,
     date {
         width: 100%;
@@ -22,21 +22,19 @@
 
     input[type=submit] {
         width: 100%;
-        background-color: #4CAF50;
         color: white;
         padding: 14px 20px;
         margin: 8px 0;
         border: none;
         border-radius: 4px;
         cursor: pointer;
-    }
+    } 
 
-    -->input[type=submit]:hover {
+    input[type=submit]:hover {
         background-color: #45a049;
     }
 
-    .button {
-        background-color: #4caf50;
+     .button {
         border: none;
         color: white;
         padding: 5px 20px;
@@ -46,7 +44,7 @@
         font-size: 16px;
         margin: 4px 2px;
         cursor: pointer;
-    }
+    } 
 
     tr,
     td {
@@ -81,15 +79,65 @@
         background-color: #4CAF50;
         color: white;
     }
+</style> --}}
+
+<style>
+    body {
+        padding-top: 7%;
+        padding-left: 10%;
+        {{!-- padding-right: 10%; --}}
+    }
+
+    table{
+        {{!-- padding-left: 15%; --}}
+        padding-right: 115%;
+        border: 1px solid black;
+      border-collapse: collapse;
+    }
+
+tr,
+    td {
+        padding-top: 7px;
+        padding-bottom: 7px;
+    }
+
+    #customers {
+        font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    #customers td,
+    #customers th {
+        border: 1px solid #ddd;
+        padding: 4px;
+    }
+
+    #customers tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+
+    #customers tr:hover {
+        background-color: #ddd;
+    }
+
+    #customers thead {
+        padding-top: 5px;
+        padding-bottom: 5px;
+        text-align: left;
+        background-color: #4CAF50;
+        color: white;
+    }
 </style>
-<center>
-    <h1><i>Area Wise Report</i></h1>
-    <table>
+
+<center >
+</center>
+    <h1 style="text-align: center">Area Wise Report</h1>
         <form action="/viewReport" method="POST">
-            <tr>
-                <td>Area name:</td>
-                <td>
-                    <select name="area">
+
+        <div style="float:left;width:50%">
+            Area name:
+            <select name="area" style="width:70%;padding-top:0%">
                         <option value=""> -- Select from below -- </option>
                         <option value="all"> All Area's </option>
                         <option value="Central"> Central </option>
@@ -114,43 +162,43 @@
                         <option value="Olympic"> Olympic </option>
                         <option value="Topanga"> Topanga </option>
                     </select>
-                </td>
-            </tr>
-            <tr>
-                <td>Date Occurred:</td>
-                <td><input type="date" name="date" value="hel" min="2009-12-31" /></td>
-            </tr>
-            <tr>
-                <td>Start Time:</td>
-                <td>
-                    <input type="text" name="starttime" placeholder="hhmm or hmm" />
-                </td>
-            </tr>
-            <tr>
-                <td>End Time:</td>
-                <td>
-                    <input type="text" name="endtime" placeholder="hhmm or hmm" />
-                </td>
-            </tr>
-            <tr>
-                <td><input type="submit" class="button" value="Fetch Result" /></td>
-            </tr>
-        </form>
-    </table>
+                
+                    <br/>
+                    <br/>
+                    Date Occurred:
+                    
+                    <input type="date" name="date" value="hel" min="2009-12-31" />
+                    <br/>
+                    <br/>
+                    </div>
+                    <div style="float:right;width:50%">
+                    
+                    Start Time:
+                    <input type="text" name="starttime" placeholder="hhmm or hmm" style="width:70%"/>
+                    <br/>
+                    End Time:
+                    <input type="text" name="endtime" placeholder="hhmm or hmm" style="width:70%"/>
+        </div>
+        
+         
+        <div style="padding-left: 35%; padding-top: 20%">
+        <input type="submit" class="button" value="Fetch Result">
+    </div>
+    </form>
+    
+    
     <br>
     <br>
-</center>
+{{!-- </center> --}}
 
 
 
 
-
-<center>
     {{#if NOCRIME}}
-    <h2><i>No crimes committed during this period</i></h2>
+    <h2 style="padding-left:15%"><i>No crimes committed during this period</i></h2>
     {{/if}}
     {{#if data}}
-    <table border='1' id="customers">
+    <table border='1' id="customers" style="padding-right:25%">
         <thead>
             <tr>
                 <td>DR_NO</td>
@@ -163,8 +211,6 @@
                 <td>STATUS</td>
             </tr>
         </thead>
-
-        <tbody>
             {{#each data}}
             <tr>
                 <td>{{this.[0]}}</td>
@@ -177,8 +223,6 @@
                 <td>{{this.[7]}}</td>
             </tr>
             {{/each}}
-        </tbody>
     </table>
     {{/if}}
-</center>
 <br />
