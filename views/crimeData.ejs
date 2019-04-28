@@ -113,6 +113,41 @@
       /* background-color: rgba(7, 1, 1, 0.644); */
       color: white;
     }
+
+    .form-radio{
+                -webkit-appearance: none;
+                -moz-appearance: none;
+                appearance: none;
+                display: inline-block;
+                position: relative;
+                background-color: #f1f1f1;
+                color: #666;
+                top: 10px;
+                height: 30px;
+                width: 30px;
+                border: 0;
+                border-radius: 50px;
+                cursor: pointer;     
+                margin-right: 7px;
+                outline: none;
+            }
+            .form-radio:checked::before
+            {
+                position: absolute;
+                font: 13px/1 'Open Sans', sans-serif;
+                left: 11px;
+                top: 7px;
+                content: '\02143';
+                transform: rotate(40deg);
+            }
+            .form-radio:hover
+            {
+                background-color: #f7f7f7;
+            }
+            .form-radio:checked
+            {
+                background-color: #f1f1f1;
+            }
     </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.min.js"></script>
     
@@ -154,8 +189,8 @@
         </select> 
     </br>
     <h3>Select ordering:</h2> 
-    <input type="radio" name="ordering" value="DESC" checked="checked"> DESCENDING ORDER<br>
-    <input type="radio" name="ordering" value="ASC"> ASCENDING ORDER<br>
+    <input type="radio" class="form-radio" name="ordering" value="DESC" checked="checked"> DESCENDING ORDER<br>
+    <input type="radio" class="form-radio" name="ordering" value="ASC"> ASCENDING ORDER<br>
     </br>
     <input type="submit" value="SUBMIT">
   <% } %>

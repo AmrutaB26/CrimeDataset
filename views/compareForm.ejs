@@ -20,8 +20,44 @@
             }
 
             body {
-                padding-right: 150px;
+                padding-top: 5%;
+                padding-left: 7%;
             }
+            .form-radio{
+                -webkit-appearance: none;
+                -moz-appearance: none;
+                appearance: none;
+                display: inline-block;
+                position: relative;
+                background-color: #f1f1f1;
+                color: #666;
+                top: 10px;
+                height: 30px;
+                width: 30px;
+                border: 0;
+                border-radius: 50px;
+                cursor: pointer;     
+                margin-right: 7px;
+                outline: none;
+            }
+            .form-radio:checked::before
+            {
+                position: absolute;
+                font: 13px/1 'Open Sans', sans-serif;
+                left: 11px;
+                top: 7px;
+                content: '\02143';
+                transform: rotate(40deg);
+            }
+            .form-radio:hover
+            {
+                background-color: #f7f7f7;
+            }
+            .form-radio:checked
+            {
+                background-color: #f1f1f1;
+            }
+            
         </style>
 </head>
 <body>
@@ -47,7 +83,8 @@
       
     <h1>Comparison Chart</h1>
     <form action="/comparison" method="POST">
-       
+
+     <div style="width:50%;float:left; ">  
         Select a year: <br />
         <select name='year'>
             <option value="">All years</option>
@@ -65,11 +102,14 @@
         <br />
         <br />
         Comparion on: <br />
-       
-        <input type="radio" name="basedon" value="time" checked="checked">Time</input><br>
-        <input type="radio" name="basedon" value="location">Location</input><br>
-        <input type="radio" name="basedon" value="age">Age</input><br/><br />
-
+       <div>
+            <input type="radio" class="form-radio"  name="basedon" value="time" checked="checked">Time</input><br>
+            <input type="radio" class="form-radio" name="basedon" value="location">Location</input><br>
+            <input type="radio" class="form-radio" name="basedon" value="age">Age</input><br/><br />
+        </div>
+    </div>
+    
+        <div style="width:50%;float:right;">
         Select Area: <br />
         <select name="area">
             <option value=""> All Areas </option>
@@ -96,7 +136,7 @@
             <option value="Topanga"> Topanga </option>
           </select>
           <br />
-          <br />
+
           Age Groups: <br />
           <select name='age'>
             <option value="0-150">All ages</option>
@@ -108,7 +148,7 @@
             <option value="65-150">Senior Citizens 65+</option>                
         </select>
         <br />
-        <br />
+
         Timeframe: <br />
         <select name='timeframe'>
             <option value="0000 and 2400">All day</option>
@@ -127,7 +167,10 @@
         </select>
         <br />
         <br />
+    </div>
+    <div style="padding-left: 35%; padding-top: 30%">
         <input type="submit" value="Submit" />
+    </div>
     </form>
 
 
@@ -141,11 +184,6 @@
           </div>
         
          <script>
-             Chart.defaults.global.elements.line.backgroundColor = "rgba(75,192,192,0.4)";
-            Chart.defaults.global.elements.line.borderColor = "rgba(75,192,192,0.4)";
-            Chart.defaults.global.elements.point.backgroundColor = "white";
-            Chart.defaults.global.elements.line.borderJoinStyle = "miter";
-            Chart.defaults.global.legend.display = "true";
 
              var dataArray = [];
              var labelList = [];
