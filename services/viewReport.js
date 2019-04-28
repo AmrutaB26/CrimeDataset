@@ -160,7 +160,7 @@ router.post("/", function(request, res) {
                   .substring(0, 15);
               }
               res.render("tempdisplay.handlebars", { data: result.rows });
-              console.log(result.rows.length);
+              // console.log(result.rows.length);
               // console.log(result.rows);
             }
           }
