@@ -1,7 +1,7 @@
 const http = require("http");
 const express = require("express");
 const webServerConfig = require("../config/web-server.js");
-const database = require("./database.js");
+// const database = require("./database.js");
 const rankingPage = require("./router.js");
 const home = require("./home.js");
 const comparisonPage = require("./compareChart.js");

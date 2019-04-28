@@ -56,52 +56,61 @@
       padding: 10px 20px 10px 20px;
     }
     #crimeRank{
-      font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+      /* font-family: "Trebuchet MS", Arial, Helvetica, sans-serif; */
       border-collapse: collapse;
       width: 50%;
     }
     input[type=submit] {
-    padding:5px 10px; 
-    background-image: -webkit-linear-gradient(#FAFAFA, #F4F4F4 40%, #E5E5E5);
+    /* padding:5px;  */
+    /* background-image: -webkit-linear-gradient(#FAFAFA, #F4F4F4 40%, #E5E5E5); */
     border: 1px solid #AAA;
     cursor:pointer;
-    -webkit-border-radius: 5px;
+    -webkit-border-radius: 50px;
     font-size: inherit;
     color: #555;
-    margin: 20px;
-    border-radius: 5px; 
+    /* margin: 20px; */
+    border-radius: 50px; 
     }   
     h1, h2{
-        font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+        /* font-family: "Trebuchet MS", Arial, Helvetica, sans-serif; */
+    }
+    h3{
+      text-transform: capitalize;
+      font-family: "Trebuchet MS", sans-serif;
     }
     select{
-        background-image: url(http://i62.tinypic.com/15xvbd5.png), -webkit-linear-gradient(#FAFAFA, #F4F4F4 40%, #E5E5E5);
-        background-position: 97% center;
-        background-repeat: no-repeat;
+      /* background-color: #ce1b28; */
+        /* background-image: url(http://i62.tinypic.com/15xvbd5.png), -webkit-linear-gradient(#FAFAFA, #F4F4F4 40%, #E5E5E5); */
+        /* background-position: 97% center;
+        background-repeat: no-repeat; */
         border: 1px solid #AAA;
-        color: #555;
+        /* color: #555; */
         font-size: inherit;
-        margin: 20px;
+        /* margin: 20px; */
         overflow: hidden;
-        padding: 5px 10px;
+        /* padding: 5px 10px; */
         text-overflow: ellipsis;
         white-space: nowrap;
         width: 300px;
+    }
+    option{
+      background-color: #ce1b28;
+      width: 300px;
     }
     #crimeRank td, #crimeRank th {
       border: 1px solid #ddd;
       padding: 8px;
     }
     
-    #crimeRank tr:nth-child(even){background-color: #f2f2f2;}
+    /* #crimeRank tr:nth-child(even){background-color: #f2f2f2;} */
     
-    #crimeRank tr:hover {background-color: #ddd;}
+    /* #crimeRank tr:hover {background-color: #ddd;} */
     
     #crimeRank th {
       padding-top: 12px;
       padding-bottom: 12px;
       text-align: left;
-      background-color: rgba(7, 1, 1, 0.644);
+      /* background-color: rgba(7, 1, 1, 0.644); */
       color: white;
     }
     </style>
@@ -112,6 +121,8 @@
 
 
 <body>
+  <br/>
+  <br/>
     <div id = "tableChart" style="float:left; width:60%;">
   <h1>RANKING PAGE</h1>
   
@@ -119,13 +130,14 @@
   <% {%>
         <h3>Select ranking criteria:</h2> 
         <select name="ranking" id= "Ranking" class ="selectBox">
-            <option value="area_crime"/> RANK AREA BY CRIME
-            <option value="weapon_crime"/> RANK WEAPON BY CRIME
+            <option value="area_crime"/> Rank Area By Crime
+            <option value="weapon_crime"/> Rank Weapon By Crime
+            <option value="victim_crime"/> Rank Victim Desent By Crime
         </select>
   </br>
   <h3>Select crime:</h2> 
         <select name="type" id="typeSelect" class ="selectBox">
-            <option value="RAPE"/> RAPE
+            <option value="RAPE"/> Rape
             <option value="THEFT"/> THEFT
             <option value="ASSAULT"/>ASSAULT
             <option value="FIREARMS"/>FIREARMS
@@ -144,8 +156,8 @@
     <h3>Select ordering:</h2> 
     <input type="radio" name="ordering" value="DESC" checked="checked"> DESCENDING ORDER<br>
     <input type="radio" name="ordering" value="ASC"> ASCENDING ORDER<br>
-    
-    Submit<input type="submit" value="SUBMIT">
+    </br>
+    <input type="submit" value="SUBMIT">
   <% } %>
   </form>
 </br>
@@ -181,6 +193,20 @@
               </tr>
               <% } %>
             <% } %>
+            <%if (type =="victim_crime") { %>
+              <tr>
+                  <th>Rank</th>
+                  <th>Victim Descent</th>
+                  <th>Count</th>
+              </tr>
+              <% for(var i=0; i < data.length; i++) { %>
+                <tr>
+                  <td><%= data[i].RANK %></td>
+                  <td><%= data[i].DESCRIPTION %></td>
+                  <td><%= data[i].COUNT %></td>
+                </tr>
+                <% } %>
+              <% } %>
       </table> 
   </div> 
 </br>
@@ -202,6 +228,9 @@
           <% } %>  
           <%if (type =="weapon_crime") { %>
             labelArray[j] = "<%=data[i].WEAPON%>"
+          <% } %> 
+          <%if (type =="victim_crime") { %>
+            labelArray[j] = "<%=data[i].DESCRIPTION%>"
           <% } %> 
           j++;
         <% } %>

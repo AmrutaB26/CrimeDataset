@@ -1,4 +1,4 @@
-const database = require('../services/database.js');
+var oracledb = require('oracledb');
  
 const selectQuery = 
 
@@ -17,6 +17,12 @@ const baseQuery =
   GROUP BY Weapon.Description
   ORDER BY COUNT(*) `;
  
+const config = {
+    user          : "aj3",
+    password      : "Database1",
+    connectString : "(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=oracle.cise.ufl.edu)(PORT=1521))(CONNECT_DATA=(SERVER=DEDICATED)(SERVICE_NAME=orcl)))"
+}
+
 async function find(context) {
   let query = selectQuery;
   const binds = {};
@@ -31,9 +37,24 @@ async function find(context) {
       console.log(query);
   }
  
-  const result = await database.simpleExecute(query, binds);
- 
-  return result.rows;
+  const opts = {};
+  opts.outFormat = oracledb.OBJECT;
+  opts.autoCommit = true;
+
+  try{
+    conn = await oracledb.getConnection(config);
+    console.log(binds);
+    const result = await conn.execute(query, binds, opts);
+    console.log(result);
+
+    return result.rows;
+  } catch (err) {
+    console.log('Ouch!', err);
+  } finally {
+    if (conn) { // conn assignment worked, need to close
+      await conn.close();
+    }
+  }
 }
  
 module.exports.find = find;

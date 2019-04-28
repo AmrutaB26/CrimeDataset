@@ -1,15 +1,15 @@
 const webServer = require('./services/web-server.js');
 
  // *** line that requires services/web-server.js is here ***
-const dbConfig = require('./config/database.js');
+// const dbConfig = require('./config/database.js');
 
 //  *** line that requires services/web-server.js is here ***
-const database = require('./services/database.js');
+// const database = require('./services/database.js');
 
-const defaultThreadPoolSize = 4;
+// const defaultThreadPoolSize = 4;
  
 // Increase thread pool size by poolMax
-process.env.UV_THREADPOOL_SIZE = dbConfig.hrPool.poolMax + defaultThreadPoolSize;
+// process.env.UV_THREADPOOL_SIZE = dbConfig.hrPool.poolMax + defaultThreadPoolSize;
 
 async function startup() {
   
@@ -17,7 +17,7 @@ async function startup() {
   try {
     console.log('Initializing database module');
  
-    await database.initialize(); 
+    // await database.initialize(); 
   } catch (err) {
     console.error(err);
  
@@ -56,7 +56,7 @@ async function shutdown(e) {
   try {
     console.log('Closing database module');
   
-    await database.close(); 
+    // await database.close(); 
   } catch (err) {
     console.log('Encountered error', e);
   

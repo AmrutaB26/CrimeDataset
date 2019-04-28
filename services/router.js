@@ -4,6 +4,7 @@ var oracledb = require('oracledb');
 const totalCount = require('../db_apis/totalCount.js');
 const rankCrimesDB = require('../db_apis/crimeType.js');
 const rankWeaponDB = require('../db_apis/weaponType.js');
+const rankVictimDB = require('../db_apis/victimDescent.js');
 const bodyParser = require('body-parser');
 router.use(bodyParser.urlencoded({ extended: true }));
 
@@ -20,8 +21,10 @@ router.route('/')
       context.ordering = req.body.ordering;
       if(req.body.ranking =="area_crime"){
         rows = await rankCrimesDB.find(context);
-      } else{
+      } else if(req.body.ranking =="weapon_crime"){
         rows = await rankWeaponDB.find(context);
+      } else if(req.body.ranking =="victim_crime"){
+        rows = await rankVictimDB.find(context);
       }
       countAll = await totalCount.find(context);
       if (req.body.type && rows.length > 0) {

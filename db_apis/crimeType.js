@@ -1,5 +1,4 @@
-const database = require('../services/database.js');
- 
+var oracledb = require('oracledb');
 const baseQuery = 
 
   `SELECT ROW_NUMBER() OVER (ORDER BY Count(*) DESC ) AS Rank, Area_name, COUNT(*) AS Count
@@ -11,11 +10,21 @@ const baseQuery =
                           WHERE Description like '%'||:type||'%')
   GROUP BY Area_name
   ORDER BY Count(*) `;
+
+  const config = {
+      user          : "aj3",
+      password      : "Database1",
+      connectString : "(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=oracle.cise.ufl.edu)(PORT=1521))(CONNECT_DATA=(SERVER=DEDICATED)(SERVICE_NAME=orcl)))"
+    
+  }
  
 async function find(context) {
   let query = baseQuery;
   const binds = {};
- 
+  const opts = {};
+  opts.outFormat = oracledb.OBJECT;
+  opts.autoCommit = true;
+
   if (context.type) {
     binds.type = context.type;
     if(context.ordering == "DESC"){
@@ -24,9 +33,20 @@ async function find(context) {
       query += 'ASC \nOFFSET 0 ROWS \nFETCH NEXT 10 ROWS ONLY';
     }
   }
-  const result = await database.simpleExecute(query, binds);
- 
-  return result.rows;
+
+  try{
+    conn = await oracledb.getConnection(config);
+    const result = await conn.execute(query, binds, opts);
+    console.log(result);
+    return result.rows;
+
+  } catch (err) {
+    console.log('Ouch!', err);
+  } finally {
+    if (conn) { // conn assignment worked, need to close
+      await conn.close();
+    }
+  }
 }
  
 module.exports.find = find;
