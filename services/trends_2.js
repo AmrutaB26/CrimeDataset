@@ -19,7 +19,7 @@ router.get('/', function (req, res) {
 router.post('/', async function (req, res) {
     settonull();
     handleaction(req, res);
-    await new Promise(resolve => setTimeout(resolve, 25000))
+    await new Promise(resolve => setTimeout(resolve, 2000))
     res.render('../views/see.ejs', {  area: area, crime: crime, one: one, first: one[0], second: one[1], third: one[2]  });
 });
 
