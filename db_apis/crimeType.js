@@ -28,9 +28,9 @@ async function find(context) {
   if (context.type) {
     binds.type = context.type;
     if(context.ordering == "DESC"){
-      query += 'DESC \nOFFSET 0 ROWS \nFETCH NEXT 10 ROWS ONLY';
+      query += 'DESC \nOFFSET 0 ROWS \nFETCH NEXT 7 ROWS ONLY';
     }else{
-      query += 'ASC \nOFFSET 0 ROWS \nFETCH NEXT 10 ROWS ONLY';
+      query += 'ASC \nOFFSET 0 ROWS \nFETCH NEXT 7 ROWS ONLY';
     }
   }
 
