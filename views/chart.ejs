@@ -74,17 +74,17 @@
           labels: ['2010', '2011', '2012', '2013', '2014', '2015', '2016', '2017', '2018', '2019'],
           datasets: [
           {
-          label: 'AREA1',
+          label: "<%=area[0]%>",
           borderColor: '#ff003f',
           data: array1
         },
         {
-          label: 'AREA2',
+          label: "<%=area[1]%>",
           borderColor: '#c300ff',
           data: array2
         },
         {
-          label: 'AREA3',
+          label: "<%=area[2]%>",
           borderColor: '#ffe100',
           data: array3
         }
@@ -125,39 +125,12 @@
 </head>
 
 <body>
-<h2> AREA1 : <%=area[0]%></h2>
-<h2> AREA2 :  <%=area[1]%> </h2>
-<h2> AREA3 : <%=area[2]%></h2>
-<h2> CRIME: <%=crime%></h2>
+<h2> Selected areas are : <%=area%></h2>
+
+<h2> Selected crime is: <%=crime%></h2>
 <form action="/trends" method=post></form>
   
-  <!-- <script type="text/javascript">
-    document.write(one);
-    document.write("<br>");
-    document.write(two);
-    document.write("<br>");
-    document.write(three);
-    document.write("<br>");
-    document.write(four);
-    document.write("<br>");
-    document.write(five);
-    document.write("<br>");
-    document.write(six);
-    document.write("<br>");
-    document.write(seven);
-    document.write("<br>");
-    document.write(eight);
-    document.write("<br>");
-    document.write(nine);
-    document.write("<br>");
-    document.write(ten);
-    document.write("<br>");
-    document.write(array1);
-    document.write("<br>");
-    document.write(array2);
-    document.write("<br>");
-    document.write(array3);
-  </script> -->
+  
 
 
 </body>

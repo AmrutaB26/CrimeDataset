@@ -8,7 +8,6 @@ var chart = require("chart.js")
 
 router.use(bodyParser.urlencoded({ extended: true }));
 router.get("/", function(request, res, next) {
-  //res.sendFile(path.join(__dirname + "/compareChart.html"));
   res.render('../views/compareForm.ejs',{data: ""});
 });
 
