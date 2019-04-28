@@ -22,6 +22,7 @@ router.get("/", function(request, res, next) {
 
 router.post("/", function(request, res) {
   // console.log(request.body.date);
+  // console.log(request.body.date);
   array = request.body.date.split("-");
   getmonth = array[1];
   mapMonth = [
