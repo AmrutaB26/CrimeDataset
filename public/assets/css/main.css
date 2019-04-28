@@ -429,7 +429,7 @@ select {
 textarea {
   padding: 0.75rem 1rem; }
 
-input[type="checkbox"],
+/* input[type="checkbox"],
 input[type="radio"] {
   -moz-appearance: none;
   -webkit-appearance: none;
@@ -480,7 +480,7 @@ input[type="checkbox"] + label:before {
   border-radius: 4px; }
 
 input[type="radio"] + label:before {
-  border-radius: 100%; }
+  border-radius: 100%; } */
 
 ::-webkit-input-placeholder {
   opacity: 1.0; }
@@ -524,7 +524,7 @@ select {
     color: #444444;
     background-color: #ffffff; }
 
-input[type="checkbox"] + label,
+/* input[type="checkbox"] + label,
 input[type="radio"] + label {
   color: #444444; }
   input[type="checkbox"] + label:before,
@@ -539,7 +539,7 @@ input[type="radio"]:checked + label:before {
 input[type="checkbox"]:focus + label:before,
 input[type="radio"]:focus + label:before {
   border-color: #ce1b28;
-  box-shadow: 0 0 0 1px #ce1b28; }
+  box-shadow: 0 0 0 1px #ce1b28; } */
 
 ::-webkit-input-placeholder {
   color: #bbbbbb !important; }
@@ -1907,8 +1907,8 @@ ul.icons {
     #banner select option {
       color: rgba(255, 255, 255, 0.5);
       background-color: #111111; }
-  #banner input[type="checkbox"] + label,
-  #banner input[type="radio"] + label {
+  /* #banner input[type="checkbox"] + label, */
+  /* #banner input[type="radio"] + label {
     color: rgba(255, 255, 255, 0.5); }
     #banner input[type="checkbox"] + label:before,
     #banner input[type="radio"] + label:before {
@@ -1922,7 +1922,7 @@ ul.icons {
   #banner input[type="checkbox"]:focus + label:before,
   #banner input[type="radio"]:focus + label:before {
     border-color: #ce1b28;
-    box-shadow: 0 0 0 1px #ce1b28; }
+    box-shadow: 0 0 0 1px #ce1b28; } */
   #banner ::-webkit-input-placeholder {
     color: rgba(255, 255, 255, 0.4) !important; }
   #banner :-moz-placeholder {
@@ -2151,8 +2151,8 @@ ul.icons {
     #cta select option {
       color: rgba(255, 255, 255, 0.75);
       background-color: #ce1b28; }
-  #cta input[type="checkbox"] + label,
-  #cta input[type="radio"] + label {
+  /* #cta input[type="checkbox"] + label, */
+  /* #cta input[type="radio"] + label {
     color: rgba(255, 255, 255, 0.75); }
     #cta input[type="checkbox"] + label:before,
     #cta input[type="radio"] + label:before {
@@ -2166,7 +2166,7 @@ ul.icons {
   #cta input[type="checkbox"]:focus + label:before,
   #cta input[type="radio"]:focus + label:before {
     border-color: #ffffff;
-    box-shadow: 0 0 0 1px #ffffff; }
+    box-shadow: 0 0 0 1px #ffffff; } */
   #cta ::-webkit-input-placeholder {
     color: rgba(255, 255, 255, 0.4) !important; }
   #cta :-moz-placeholder {
@@ -2293,8 +2293,8 @@ ul.icons {
     #footer select option {
       color: rgba(255, 255, 255, 0.5);
       background-color: #111111; }
-  #footer input[type="checkbox"] + label,
-  #footer input[type="radio"] + label {
+  /* #footer input[type="checkbox"] + label, */
+  /* #footer input[type="radio"] + label {
     color: rgba(255, 255, 255, 0.5); }
     #footer input[type="checkbox"] + label:before,
     #footer input[type="radio"] + label:before {
@@ -2308,7 +2308,7 @@ ul.icons {
   #footer input[type="checkbox"]:focus + label:before,
   #footer input[type="radio"]:focus + label:before {
     border-color: #ce1b28;
-    box-shadow: 0 0 0 1px #ce1b28; }
+    box-shadow: 0 0 0 1px #ce1b28; } */
   #footer ::-webkit-input-placeholder {
     color: rgba(255, 255, 255, 0.4) !important; }
   #footer :-moz-placeholder {
@@ -2595,8 +2595,8 @@ body {
     #heading select option {
       color: rgba(255, 255, 255, 0.5);
       background-color: #111111; }
-  #heading input[type="checkbox"] + label,
-  #heading input[type="radio"] + label {
+  /* #heading input[type="checkbox"] + label, */
+  /* #heading input[type="radio"] + label {
     color: rgba(255, 255, 255, 0.5); }
     #heading input[type="checkbox"] + label:before,
     #heading input[type="radio"] + label:before {
@@ -2610,7 +2610,7 @@ body {
   #heading input[type="checkbox"]:focus + label:before,
   #heading input[type="radio"]:focus + label:before {
     border-color: #ce1b28;
-    box-shadow: 0 0 0 1px #ce1b28; }
+    box-shadow: 0 0 0 1px #ce1b28; } */
   #heading ::-webkit-input-placeholder {
     color: rgba(255, 255, 255, 0.4) !important; }
   #heading :-moz-placeholder {
