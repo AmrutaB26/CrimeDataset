@@ -8,13 +8,13 @@ let area
 let crime
 var one = [];
 
-router.get('/', function (req, res) {
+router.get('/trends', function (req, res) {
 
     res.render('../views/see.ejs',{one: ""});
 
 });
 
-router.post('/', async function (req, res) {
+router.post('/trends', async function (req, res) {
     settonull();
     handleaction(req, res);
     await new Promise(resolve => setTimeout(resolve, 2000))
