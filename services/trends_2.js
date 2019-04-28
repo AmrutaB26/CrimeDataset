@@ -3,12 +3,10 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var router = express.Router();
 // app.set('view engine', 'ejs');
-router.use(bodyParser.urlencoded({ extended: true }))
+//router.use(bodyParser.urlencoded({ extended: true }))
 let area
 let crime
 var one = [];
-
-// app.use(bodyParser.urlencoded({ extended: true }))
 
 router.get('/', function (req, res) {
 
@@ -22,11 +20,6 @@ router.post('/', async function (req, res) {
     await new Promise(resolve => setTimeout(resolve, 2000))
     res.render('../views/see.ejs', {  area: area, crime: crime, one: one, first: one[0], second: one[1], third: one[2]  });
 });
-
-
-
-
-
 
 function settonull(){
     one=[];
