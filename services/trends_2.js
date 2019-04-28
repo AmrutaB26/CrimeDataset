@@ -12,7 +12,7 @@ var one = [];
 
 router.get('/', function (req, res) {
 
-    res.render('../views/chart1.ejs',{one: ""});
+    res.render('../views/see.ejs',{one: ""});
 
 });
 
@@ -20,7 +20,7 @@ router.post('/', async function (req, res) {
     settonull();
     handleaction(req, res);
     await new Promise(resolve => setTimeout(resolve, 25000))
-    res.render('../views/chart1.ejs', {  area: area, crime: crime, one: one, first: one[0], second: one[1], third: one[2]  });
+    res.render('../views/see.ejs', {  area: area, crime: crime, one: one, first: one[0], second: one[1], third: one[2]  });
 });
 
 
