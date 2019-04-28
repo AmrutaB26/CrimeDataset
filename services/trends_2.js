@@ -4,8 +4,8 @@ var bodyParser = require('body-parser');
 var router = express.Router();
 // app.set('view engine', 'ejs');
 //router.use(bodyParser.urlencoded({ extended: true }))
-let area
-let crime
+var area
+var crime
 var one = [];
 
 router.get('/', function (req, res) {
