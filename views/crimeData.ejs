@@ -53,12 +53,12 @@
 
   <style>
     body{
-      padding: 10px 20px 10px 20px;
+      padding: 30px 0px 10px 20px;
     }
     #crimeRank{
       /* font-family: "Trebuchet MS", Arial, Helvetica, sans-serif; */
       border-collapse: collapse;
-      width: 50%;
+      width: 80%;
     }
     input[type=submit] {
     /* padding:5px;  */
@@ -102,15 +102,16 @@
       padding: 8px;
     }
     
-    /* #crimeRank tr:nth-child(even){background-color: #f2f2f2;} */
+    #crimeRank tr:nth-child(even){background-color: #f2f2f2;}
     
-    /* #crimeRank tr:hover {background-color: #ddd;} */
+    #crimeRank tr:hover {background-color: #ddd;}
     
     #crimeRank th {
       padding-top: 12px;
       padding-bottom: 12px;
       text-align: left;
-      /* background-color: rgba(7, 1, 1, 0.644); */
+      text-transform: uppercase;
+      background-color: rgb(206,27,40); 
       color: white;
     }
 
@@ -158,8 +159,8 @@
 <body>
   <br/>
   <br/>
-    <div id = "tableChart" style="float:left; width:60%;">
-  <h1>RANKING PAGE</h1>
+    <div id = "tableChart" style="float:left;width:60%;">
+  <h1 style="padding-left:60%">RANKING PAGE</h1>
   
   <form action="/ranking" method=post>
   <% {%>
@@ -196,9 +197,10 @@
   <% } %>
   </form>
 </br>
-</br> 
+</br>
+</div> 
   <%if (data.length > 0 ) { %>
-    <div id = "displaytable">
+    <div id = "displaytable" style="width:40%;float:right;padding-top:6%">
     <table id="crimeRank">
         <%if (type =="area_crime") { %>
           <tr>
@@ -243,11 +245,10 @@
                 <% } %>
               <% } %>
       </table> 
-  </div> 
 </br>
 </br>
     </div>
-  <div id = "displaychart" style="width:40%;float:right; ">
+  <div id = "displaychart" style="padding-left:15%;width:85%;align-content: center">
     <canvas id = "chart"></canvas>
   </div>
   <script>
