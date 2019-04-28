@@ -41,6 +41,7 @@ router.get("/", function(request, res, next) {
             }
           }
         );
+        // connection.close();
       }
     );
   }

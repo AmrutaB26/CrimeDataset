@@ -166,6 +166,7 @@ router.post("/", function(request, res) {
           }
         }
       );
+      // connection.close();
     }
   );
 });
