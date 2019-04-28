@@ -6,23 +6,13 @@ var router = express.Router();
 router.use(bodyParser.urlencoded({ extended: true }))
 let area
 let crime
-var array;
 var one = [];
-var two = [];
-var three = [];
-var four = [];
-var five = [];
-var six = [];
-var seven = [];
-var eight = [];
-var nine = [];
-var ten = [];
 
 // app.use(bodyParser.urlencoded({ extended: true }))
 
 router.get('/', function (req, res) {
 
-    res.render('../views/see.ejs');
+    res.render('../views/chart1.ejs',{one: ""});
 
 });
 
@@ -30,22 +20,25 @@ router.post('/', async function (req, res) {
     settonull();
     handleaction(req, res);
     await new Promise(resolve => setTimeout(resolve, 25000))
-    res.render('../views/chart.ejs', { area: array, crime: crime, one: JSON.stringify(one), two: JSON.stringify(two), three: JSON.stringify(three), four: JSON.stringify(four), five: JSON.stringify(five), six: JSON.stringify(six), seven: JSON.stringify(seven), eight: JSON.stringify(eight), nine: JSON.stringify(nine), ten: JSON.stringify(ten) });
+    res.render('../views/chart1.ejs', {  area: area, crime: crime, one: one, first: one[0], second: one[1], third: one[2]  });
 });
 
+
+
+
+app.use(bodyParser.urlencoded({ extended: true }))
+
 function settonull(){
-    one=[];two=[];three=[];four=[];five=[];six=[];seven=[];eight=[];nine=[];ten=[];
+    one=[];
 }
 //handleOperation start
-function handleOperation(request, response, callback) {
+function handleOperation(request, response, callback)
+{
 
     response.setHeader('Access-Control-Allow-Origin', '*');
     response.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
     response.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
     response.setHeader('Access-Control-Allow-Credentials', true);
-
-
-    
 
     oracledb.getConnection(
         {
@@ -67,256 +60,70 @@ function handleOperation(request, response, callback) {
 function handleaction(req, res) {
     area = req.body.area
     crime = req.body.crime
-    
-    if(typeof(area)==='string')
-    {
-     array={key1:area};
-     array=Object.values(array);
-     
-    }
-    else
-     array = Object.values(area);
+    var array = Object.values(area);
+    console.log("Areas are")
+;    console.log(array);
     
     handleOperation(req, res, function (request, response, connection) {
-        for (let element of array) {
-            var selectStatement1 = "SELECT COUNT(*) FROM ((SELECT reports.dr_no FROM location,reports where location.coordinates=reports.coordinates  and reports.crime_code IN ( SELECT crime_code FROM crime WHERE  description LIKE '%'||:c||'%' ) and location.area_name=:a) INTERSECT ( SELECT dr_no  FROM incident WHERE date_occurred LIKE '_______10'))";
-            var selectStatement2 = "SELECT COUNT(*) FROM ((SELECT reports.dr_no FROM location,reports where location.coordinates=reports.coordinates  and reports.crime_code IN ( SELECT crime_code FROM crime WHERE  description LIKE '%'||:c||'%' ) and location.area_name=:a) INTERSECT ( SELECT dr_no  FROM incident WHERE date_occurred LIKE '_______11'))";
-            var selectStatement3 = "SELECT COUNT(*) FROM ((SELECT reports.dr_no FROM location,reports where location.coordinates=reports.coordinates  and reports.crime_code IN ( SELECT crime_code FROM crime WHERE  description LIKE '%'||:c||'%' ) and location.area_name=:a) INTERSECT ( SELECT dr_no  FROM incident WHERE date_occurred LIKE '_______12'))";
-            var selectStatement4 = "SELECT COUNT(*) FROM ((SELECT reports.dr_no FROM location,reports where location.coordinates=reports.coordinates  and reports.crime_code IN ( SELECT crime_code FROM crime WHERE  description LIKE '%'||:c||'%' ) and location.area_name=:a) INTERSECT ( SELECT dr_no  FROM incident WHERE date_occurred LIKE '_______13'))";
-            var selectStatement5 = "SELECT COUNT(*) FROM ((SELECT reports.dr_no FROM location,reports where location.coordinates=reports.coordinates  and reports.crime_code IN ( SELECT crime_code FROM crime WHERE  description LIKE '%'||:c||'%' ) and location.area_name=:a) INTERSECT ( SELECT dr_no  FROM incident WHERE date_occurred LIKE '_______14'))";
-            var selectStatement6 = "SELECT COUNT(*) FROM ((SELECT reports.dr_no FROM location,reports where location.coordinates=reports.coordinates  and reports.crime_code IN ( SELECT crime_code FROM crime WHERE  description LIKE '%'||:c||'%' ) and location.area_name=:a) INTERSECT ( SELECT dr_no  FROM incident WHERE date_occurred LIKE '_______15'))";
-            var selectStatement7 = "SELECT COUNT(*) FROM ((SELECT reports.dr_no FROM location,reports where location.coordinates=reports.coordinates  and reports.crime_code IN ( SELECT crime_code FROM crime WHERE  description LIKE '%'||:c||'%' ) and location.area_name=:a) INTERSECT ( SELECT dr_no  FROM incident WHERE date_occurred LIKE '_______16'))";
-            var selectStatement8 = "SELECT COUNT(*) FROM ((SELECT reports.dr_no FROM location,reports where location.coordinates=reports.coordinates  and reports.crime_code IN ( SELECT crime_code FROM crime WHERE  description LIKE '%'||:c||'%' ) and location.area_name=:a) INTERSECT ( SELECT dr_no  FROM incident WHERE date_occurred LIKE '_______17'))";
-            var selectStatement9 = "SELECT COUNT(*) FROM ((SELECT reports.dr_no FROM location,reports where location.coordinates=reports.coordinates  and reports.crime_code IN ( SELECT crime_code FROM crime WHERE  description LIKE '%'||:c||'%' ) and location.area_name=:a) INTERSECT ( SELECT dr_no  FROM incident WHERE date_occurred LIKE '_______18'))";
-            var selectStatement10 = "SELECT COUNT(*) FROM ((SELECT reports.dr_no FROM location,reports where location.coordinates=reports.coordinates  and reports.crime_code IN ( SELECT crime_code FROM crime WHERE  description LIKE '%'||:c||'%' ) and location.area_name=:a) INTERSECT ( SELECT dr_no  FROM incident WHERE date_occurred LIKE '_______19'))";
+        
+        for (var k=0;k<array.length;k++) {
 
-            connection.execute(selectStatement1,
+        //    selectStatement= "select  EXTRACT(YEAR FROM TO_DATE(DATE_OCCURRED) ), count(*) from incident where incident.dr_no IN  ( SELECT reports.dr_no FROM location,reports where location.coordinates=reports.coordinates  and reports.crime_code IN  ( SELECT crime_code FROM crime WHERE  description LIKE '%'||:c||'%' ) and location.area_id= (SELECT area_id from area where area_name=:a)  ) group by  EXTRACT(YEAR FROM TO_DATE(DATE_OCCURRED)) ORDER BY EXTRACT(YEAR FROM TO_DATE(DATE_OCCURRED))" ;
+           selectStatement="select  EXTRACT(YEAR FROM TO_DATE(DATE_OCCURRED)) as year, count(*) from incident where incident.dr_no IN  ( SELECT reports.dr_no FROM location,reports where location.coordinates=reports.coordinates  and reports.crime_code IN  ( SELECT crime_code FROM crime WHERE  description LIKE '%'||:c||'%' ) and location.area_id= (SELECT area_id from area where area_name=:a)  ) group by  EXTRACT(YEAR FROM TO_DATE(DATE_OCCURRED)) ORDER BY EXTRACT(YEAR FROM TO_DATE(DATE_OCCURRED))";
+            connection.execute(selectStatement,
 
-                { c: crime, a: element },
+                { c: crime, a: array[k] },
                function (err, result) {
                     if (err) { }
                     else {
-                        var ans = JSON.stringify(result.rows);
-                        ans = ans.replace("]", "")
-                        ans = ans.replace("]", "")
-                        ans = ans.replace("[", "")
-                        ans = ans.replace("[", "")
-                        ans = parseInt(ans, 10);
-                        ans = parseInt(ans, 10);
-                        one.push(ans);
-                       // console.log('2010 ' + element + ans);
+                        
+                        var ans = result.rows;
+                        var new_arr = [];
+                        // console.log(result.rows);
+                        var final_arr = new Array(10);
+                        final_arr.fill(0);
+                        // console.log("Final");
+                        // console.log(final_arr);
+                        for(var i = 0 ; i<ans.length;i++)
+                        {
+                            new_arr[i] = ans[i][0];
+                        }
+                        var z = 0;
+                       for(var i = 2010; i<2020; i++)
+                        {
+                            if(new_arr.includes(i))
+                            {
+                              final_arr[i%10] = ans[z++][1];
+                            }
+                        } 
+
+                        // console.log("Updated array");
+                        // console.log(final_arr);
+                        // for()
+                        one.push(final_arr);
+                        
+                       //  console.log(one);
                     }
 
                 })//execute
 
-            connection.execute(selectStatement2,
+                 // console.log(one);
 
-                { c: crime, a: element },
-                function (err, result) {
-                    if (err) { }
-                    else {
-                        var ans = JSON.stringify(result.rows);
-                        ans = ans.replace("]", "")
-                        ans = ans.replace("]", "")
-                        ans = ans.replace("[", "")
-                        ans = ans.replace("[", "")
-                        ans = parseInt(ans, 10);
-                        ans = parseInt(ans, 10);
-
-                        two.push(ans);
-                        console.log('2011 ' + element + ans);
-                    }
-               })//execute
-
-            connection.execute(selectStatement3,
-
-                { c: crime, a: element },
-             function (err, result) {
-                    if (err) { }
-                    else {
-                        var ans = JSON.stringify(result.rows);
-                        ans = ans.replace("]", "")
-                        ans = ans.replace("]", "")
-                        ans = ans.replace("[", "")
-                        ans = ans.replace("[", "")
-                        ans = parseInt(ans, 10);
-                        ans = parseInt(ans, 10);
-
-                        three.push(ans);
-                        console.log('2012 ' + element + ans);
-                   }
-                 })//execute
-
-            connection.execute(selectStatement4,
-
-                { c: crime, a: element },
-               
-                function (err, result) {
-                    if (err) { }
-                    else {
-                        var ans = JSON.stringify(result.rows);
-                        ans = ans.replace("]", "")
-                        ans = ans.replace("]", "")
-                        ans = ans.replace("[", "")
-                        ans = ans.replace("[", "")
-                        ans = parseInt(ans, 10);
-                        ans = parseInt(ans, 10);
-
-                        four.push(ans);
-                        console.log('2013 ' + element + ans);
-
-
-                    }
-
-                })//execute
-
-         
-
-            connection.execute(selectStatement5,
-
-                { c: crime, a: element },
-                function (err, result) {
-                    if (err) { }
-                    else {
-                        var ans = JSON.stringify(result.rows);
-                        ans = ans.replace("]", "")
-                        ans = ans.replace("]", "")
-                        ans = ans.replace("[", "")
-                        ans = ans.replace("[", "")
-                        ans = parseInt(ans, 10);
-                        ans = parseInt(ans, 10);
-
-                        five.push(ans);
-                        console.log('2014' + element + ans);
-
-                    }
-
-                })//execute
-
-               connection.execute(selectStatement6,
-
-                { c: crime, a: element },
-               function (err, result) {
-                    if (err) { }
-                    else {
-                        var ans = JSON.stringify(result.rows);
-                        ans = ans.replace("]", "")
-                        ans = ans.replace("]", "")
-                        ans = ans.replace("[", "")
-                        ans = ans.replace("[", "")
-                        ans = parseInt(ans, 10);
-                        ans = parseInt(ans, 10);
-
-                        six.push(ans);
-                        console.log('2015 ' + element + ans);
-
-                    }
-
-                })//execute
-
-            connection.execute(selectStatement7,
-
-                { c: crime, a: element },
-                // {outFormat: oracledb.OBJECT}, // Return the result as Object
-                function (err, result) {
-                    if (err) { }
-                    else {
-                        var ans = JSON.stringify(result.rows);
-                        ans = ans.replace("]", "")
-                        ans = ans.replace("]", "")
-                        ans = ans.replace("[", "")
-                        ans = ans.replace("[", "")
-                        ans = parseInt(ans, 10);
-                        ans = parseInt(ans, 10);
-
-                        seven.push(ans);
-                        console.log('2016' + element + ans);
-
-                    }
-
-                })//execute
-
-            connection.execute(selectStatement8,
-
-                { c: crime, a: element },
-                // {outFormat: oracledb.OBJECT}, // Return the result as Object
-                function (err, result) {
-                    if (err) { }
-                    else {
-                        var ans = JSON.stringify(result.rows);
-                        ans = ans.replace("]", "")
-                        ans = ans.replace("]", "")
-                        ans = ans.replace("[", "")
-                        ans = ans.replace("[", "")
-                        ans = parseInt(ans, 10);
-                        ans = parseInt(ans, 10);
-
-                        eight.push(ans);
-                        console.log('2017 ' + element + ans);
-
-                    }
-
-                })//execute
-
-
-            connection.execute(selectStatement9,
-
-                { c: crime, a: element },
-                
-                function (err, result) {
-                    if (err) { }
-                    else {
-                        var ans = JSON.stringify(result.rows);
-                        ans = ans.replace("]", "")
-                        ans = ans.replace("]", "")
-                        ans = ans.replace("[", "")
-                        ans = ans.replace("[", "")
-                        ans = parseInt(ans, 10);
-                        ans = parseInt(ans, 10);
-
-                        nine.push(ans);
-                        console.log('2018' + element + ans);
-
-                    }
-
-                })//execute
-
-         
-            connection.execute(selectStatement10,
-
-                { c: crime, a: element },
-               
-                function (err, result) {
-                    if (err) { }
-                    else {
-                        var ans = JSON.stringify(result.rows);
-                        ans = ans.replace("]", "")
-                        ans = ans.replace("]", "")
-                        ans = ans.replace("[", "")
-                        ans = ans.replace("[", "")
-                        ans = parseInt(ans, 10);
-                        ans = parseInt(ans, 10);
-
-                        ten.push(ans);
-                        console.log('2019 ' + element + ans);
-                     
-
-                    }
-
-                })//execute
+           
            }//FOR
         }//function
     );
 }
 
-function doRelease(connection) {
+function doRelease(connection) 
+{
     connection.release(
         function (err) {
             if (err) {
                 console.error(err.message);
             }
         });
-};  
+}
 
 module.exports = router;
 
