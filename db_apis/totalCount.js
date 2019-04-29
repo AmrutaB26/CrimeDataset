@@ -21,6 +21,7 @@ async function find(context) {
   const opts = {};
   opts.outFormat = oracledb.OBJECT;
   opts.autoCommit = true;
+  console.log(query);
   try{
     conn = await oracledb.getConnection(config);
     console.log(binds);

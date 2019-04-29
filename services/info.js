@@ -7,8 +7,13 @@ var oracledb = require("oracledb");
 const exphbs = require("express-handlebars");
 
 router.use(bodyParser.urlencoded({ extended: true }));
-
-router.get("/", function(request, res, next) {
+const config = {
+  user: "aj3",
+  password: "Database1",
+  connectString:
+    "(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=oracle.cise.ufl.edu)(PORT=1521))(CONNECT_DATA=(SERVER=DEDICATED)(SERVICE_NAME=orcl)))"
+};
+router.get("/", async function(request, res, next) {
   // console.log("Hello world");
   var track = request.query.id;
   if (track == undefined) {
@@ -17,33 +22,45 @@ router.get("/", function(request, res, next) {
   } else {
     // console.log(track);
     var query = `Select count(*) from ${track}`;
-    oracledb.getConnection(
-      {
-        user: "aj3",
-        password: "Database1",
-        connectString:
-          "(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=oracle.cise.ufl.edu)(PORT=1521))(CONNECT_DATA=(SERVER=DEDICATED)(SERVICE_NAME=orcl)))"
-      },
-      function(err, connection) {
-        if (err) {
-          console.error(err);
-          return;
-        }
-        connection.execute(
-          query,
-          // [updated_date, data.starttime, data.endtime, data.area],
-          function(err, result) {
-            if (err) {
-              console.error(err);
-              return;
-            } else {
-              res.render("info.handlebars", { [track]: result.rows });
-            }
-          }
-        );
-        // connection.close();
+
+    try{
+      connection = await oracledb.getConnection(config);
+      // console.log(binds);
+      const result = await connection.execute(query);
+      // console.log(result);
+      res.render("info.handlebars", { [track]: result.rows });
+    } catch (err) {
+      console.log('Ouch!', err);
+    } finally {
+      if (connection) { // conn assignment worked, need to close
+        await connection.close();
       }
-    );
+    }
+
+
+
+    // oracledb.getConnection(
+    //   ,
+    //   function(err, connection) {
+    //     if (err) {
+    //       console.error(err);
+    //       return;
+    //     }
+    //     connection.execute(
+    //       query,
+    //       // [updated_date, data.starttime, data.endtime, data.area],
+    //       function(err, result) {
+    //         if (err) {
+    //           console.error(err);
+    //           return;
+    //         } else {
+    //           res.render("info.handlebars", { [track]: result.rows });
+    //         }
+    //       }
+    //     );
+    //     // connection.close();
+    //   }
+    // );
   }
 
   // if (request.query.id == "Area") console.log("In Area");

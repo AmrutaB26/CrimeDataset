@@ -25,15 +25,13 @@ async function find(context) {
   opts.outFormat = oracledb.OBJECT;
   opts.autoCommit = true;
 
-  if (context.type) {
     binds.type = context.type;
     if(context.ordering == "DESC"){
       query += 'DESC \nOFFSET 0 ROWS \nFETCH NEXT 7 ROWS ONLY';
     }else{
       query += 'ASC \nOFFSET 0 ROWS \nFETCH NEXT 7 ROWS ONLY';
     }
-  }
-
+  console.log(query);
   try{
     conn = await oracledb.getConnection(config);
     const result = await conn.execute(query, binds, opts);

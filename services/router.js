@@ -27,7 +27,7 @@ router.route('/')
         rows = await rankVictimDB.find(context);
       }
       countAll = await totalCount.find(context);
-      if (req.body.type && rows.length > 0) {
+      if (rows.length > 0) {
             return res.render('../views/crimeData.ejs', {data: rows, type: req.body.ranking, total: countAll})
         } else {
           res.status(404).end();

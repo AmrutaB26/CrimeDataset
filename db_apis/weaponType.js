@@ -26,17 +26,14 @@ const config = {
 async function find(context) {
   let query = selectQuery;
   const binds = {};
- 
-  if (context.type) {
+
     binds.type = context.type;
     if(context.ordering == "DESC"){
         query = query + 'DESC' + baseQuery + 'DESC \nOFFSET 0 ROWS \nFETCH NEXT 10 ROWS ONLY';
       }else{
         query = query + 'ASC' + baseQuery + 'ASC \nOFFSET 0 ROWS \nFETCH NEXT 10 ROWS ONLY';
       }
-      console.log(query);
-  }
- 
+      console.log(query); 
   const opts = {};
   opts.outFormat = oracledb.OBJECT;
   opts.autoCommit = true;
